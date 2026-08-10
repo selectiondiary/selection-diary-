@@ -1,0 +1,129 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Selection Diary</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}button,input,select{font:inherit}button{cursor:pointer}.hide{display:none!important}.wrap{max-width:1100px;margin:auto;padding:18px}.card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:18px;margin:12px 0}.setup{min-height:100vh;display:grid;place-items:center;padding:20px}.setup .card{max-width:650px;width:100%;text-align:center}.logo{font-size:40px;font-weight:900;color:#4f46e5}label{display:block;text-align:left;font-weight:700;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #d7dde8;border-radius:10px}.opts,.yn{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.yn{grid-template-columns:1fr 1fr}.opt,.tab,.sec,.yn button{padding:11px;border:1px solid #d7dde8;background:#fff;border-radius:10px;font-weight:700}.sel,.yn .yes{background:#eef2ff;border-color:#4f46e5;color:#4f46e5}.yn .yes.sel{background:#ecfdf5;border-color:#22c55e;color:#15803d}.yn .no.sel{background:#f8fafc;border-color:#94a3b8}.primary{width:100%;padding:13px;margin-top:16px;background:#4f46e5;color:white;border:0;border-radius:10px;font-weight:800}header{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0}.top{display:flex;justify-content:space-between;align-items:center}.brand{font-size:24px;font-weight:900;color:#4f46e5}.stats,.g2,.g3{display:grid;gap:10px}.stats{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.num{font-size:26px;font-weight:900;margin-top:5px}.muted{color:#64748b}.tabs{display:flex;gap:8px;overflow:auto;margin:18px 0}.subject{border:1px solid #e2e8f0;border-radius:14px;padding:14px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{min-height:55px;text-align:left;background:#fff;border:1px solid #ddd;border-radius:8px;padding:6px}.done{background:#ecfdf5;border-color:#86efac}.task{padding:12px;border-bottom:1px solid #eee}.timer{text-align:center}.clock{font-size:58px;font-weight:900;margin:25px}.record{display:grid;grid-template-columns:230px 1fr;border-bottom:1px solid #eee;padding:9px 0}.good{background:#ecfdf5;border-color:#86efac}.more{color:#15803d;font-weight:800}.less{color:#dc2626;font-weight:800}.same{color:#64748b;font-weight:800}@media(max-width:700px){.opts{grid-template-columns:1fr 1fr}.stats,.g2,.g3{grid-template-columns:1fr 1fr}.record{grid-template-columns:1fr}.setup .card{padding:22px}}
+</style></head><body>
+
+<div id="setup" class="setup"><div class="card"><div class="logo">Selection Diary</div><p id="tag">Free Daily Study Tracker</p>
+<label id="ln">Name</label><input id="name" placeholder="Enter your name"><label id="ll">Language</label>
+<div class="opts"><button class="opt sel" data-lang="English">English</button><button class="opt" data-lang="Hindi">Hindi</button></div>
+<label id="lt">Target</label><div class="opts"><button class="opt" data-target="11th">11th</button><button class="opt" data-target="12th">12th</button><button class="opt" data-target="NEET">NEET</button><button class="opt" data-target="JEE">JEE</button></div>
+<div id="stream" class="hide"><label id="ls">Stream</label><div class="opts"><button class="opt" data-stream="Biology">Biology</button><button class="opt" data-stream="Maths">Maths</button></div></div>
+<button id="enter" class="primary">Start My Diary →</button></div></div>
+
+<div id="app" class="hide"><header><div class="wrap top"><b class="brand">Selection Diary</b><button id="change" class="sec">Change Profile</button></div></header><main class="wrap">
+<h1 id="hello"></h1><p id="info" class="muted"></p><div class="stats"><div class="card">🔥 Streak<div id="streak" class="num">0</div></div><div class="card">⏱ Study<div id="ss" class="num">0h</div></div><div class="card">📝 Homework<div id="qs" class="num">0</div></div><div class="card">🎥 Live Lecture<div id="lsn" class="num">0</div></div></div>
+<div class="tabs"><button class="tab sel" data-page="today">Today</button><button class="tab" data-page="tasks">Tasks</button><button class="tab" data-page="timer">Timer</button><button class="tab" data-page="notes">Important Notes</button><button class="tab" data-page="records">Records</button></div>
+
+<section id="today">
+<div class="card"><h2 id="cal">📅 Monthly Calendar</h2><div id="calendar" class="calendar"></div></div>
+<div class="card"><h2 id="daily">⏰ Daily Check-in</h2><div class="g2">
+<div><label id="wakeL">Wake-up Time</label><input id="wake" type="time"></div><div><label id="startL">Study Start Time</label><input id="start" type="time"></div><div><label id="sleepL">Sleep Time</label><input id="sleep" type="time"></div>
+<div><label id="phoneL">Phone Screen Time</label><select id="phone"></select></div><div><label id="studyL">Total Study Hours</label><select id="study"></select></div><div><label id="testL">Tests Given</label><input id="tests" type="number" min="0"></div></div></div>
+<div class="card"><h2 id="work">📚 Daily Work</h2><div id="subjects" class="g3"></div></div>
+<div class="card"><h2 id="backTitle">⚠️ Backlog</h2><div class="yn"><button id="bNo" class="no">No</button><button id="bYes" class="yes">Yes</button></div><div id="bd" class="g3 hide" style="margin-top:10px"><div><label id="bl">Backlog Lecture</label><input id="back" type="number" min="0"></div><div><label id="cl">Complete Lecture</label><input id="complete" type="number" min="0"></div><div><label id="rl">Total Lecture</label><input id="remain" type="number" readonly></div></div><div id="bg" class="card good hide">Good 👍 No backlog!</div></div>
+<div id="compare" class="card hide"></div><button id="save" class="primary">Save Today's Record ✓</button>
+</section>
+
+<section id="tasks" class="hide"><div class="card"><h2 id="taskTitle">🎯 Today's Tasks</h2><div style="display:flex;gap:8px"><input id="taskInput" placeholder="Example: Physics 50 questions"><button id="add" class="sec">Add</button></div><div id="taskList"></div></div></section>
+<section id="timer" class="hide"><div class="card timer"><h2>⏱ Study Timer</h2><div id="clock" class="clock">00:00:00</div><button id="tb" class="primary">Start Timer</button><button id="tr" class="sec">Reset</button></div></section>
+<section id="notes" class="hide"><div class="card"><h2 id="notesTitle">📖 Important Notes & Formula Bank</h2><div id="noteButtons" class="opts"></div><div id="noteContent"></div></div></section>
+<section id="records" class="hide"><div class="card"><h2 id="recordsTitle">🗂️ Records</h2><div id="recordList"></div></div></section>
+</main></div>
+
+<script>
+const P="sd.profile";
+let profile=JSON.parse(localStorage.getItem(P)||"null");
+let records={},tasks=[];
+let lang="English",target="",stream="",backlog=null,t=0,run=false,int=null;
+function profileKey(){
+  if(!profile) return "default";
+  return [profile.name.trim().toLowerCase(),profile.language,profile.target,profile.stream||""]
+    .map(x=>encodeURIComponent(x)).join("|");
+}
+function recordsKey(){return "sd.records."+profileKey()}
+function tasksKey(){return "sd.tasks."+profileKey()}
+function loadProfileData(){
+  records=JSON.parse(localStorage.getItem(recordsKey())||"{}");
+  tasks=JSON.parse(localStorage.getItem(tasksKey())||"[]");
+}
+const $=x=>document.getElementById(x),day=()=>{let d=new Date();return d.toISOString().slice(0,10)};
+const save=()=>localStorage.setItem(P,JSON.stringify(profile));
+const S=()=>target==="JEE"||((target==="11th"||target==="12th")&&stream==="Maths")?["Physics","Chemistry","Maths"]:["Physics","Chemistry","Biology"];
+function persistData(){
+  localStorage.setItem(recordsKey(),JSON.stringify(records));
+  localStorage.setItem(tasksKey(),JSON.stringify(tasks));
+}
+const H={English:{name:"Name",language:"Language",target:"Target",stream:"Stream",start:"Start My Diary →",change:"Change Profile",name:"Name",target:"Target",wake:"Wake-up Time",startStudy:"Study Start Time",sleep:"Sleep Time",phone:"Phone Screen Time",study:"Total Study Hours",tests:"Tests Given",work:"📚 Daily Work",live:"Live Lecture",dpp:"DPP",home:"Homework Questions",back:"⚠️ Backlog",yes:"Yes",no:"No",bl:"Backlog Lecture",cl:"Complete Lecture",rl:"Total Lecture",good:"Good 👍 No backlog!",save:"Save Today's Record ✓",tasks:"🎯 Today's Tasks",taskph:"Example: Physics 50 questions",add:"Add",done:"Task complete?",records:"🗂️ Records",more:"more than yesterday",less:"less than yesterday",same:"same as yesterday",full:"View Full Record",empty:"No records yet."},
+Hindi:{name:"नाम",language:"भाषा",target:"लक्ष्य",stream:"स्ट्रीम",start:"डायरी शुरू करें →",change:"प्रोफाइल बदलें",name:"नाम",target:"लक्ष्य",wake:"सुबह उठने का समय",startStudy:"पढ़ाई शुरू करने का समय",sleep:"सोने का समय",phone:"फोन स्क्रीन टाइम",study:"कुल पढ़ाई के घंटे",tests:"टेस्ट दिए",work:"📚 आज की पढ़ाई",live:"लाइव लेक्चर",dpp:"DPP",home:"होमवर्क क्वेश्चन",back:"⚠️ बैकलॉग",yes:"हाँ",no:"नहीं",bl:"बैकलॉग लेक्चर",cl:"कम्प्लीट लेक्चर",rl:"बाकी लेक्चर",good:"बहुत अच्छा 👍 कोई बैकलॉग नहीं!",save:"आज का रिकॉर्ड सेव करें ✓",tasks:"🎯 आज के टास्क",taskph:"जैसे: Physics के 50 प्रश्न",add:"जोड़ें",done:"टास्क पूरा किया?",records:"🗂️ रिकॉर्ड",more:"कल से ज्यादा",less:"कल से कम",same:"कल जितना ही",full:"पूरा रिकॉर्ड देखें",empty:"अभी कोई रिकॉर्ड नहीं है।"}};
+function tr(k){return H[lang][k]||H.English[k]||k}
+function translate(){let map={ln:"name",ll:"language",lt:"target",ls:"stream",enter:"start",change:"change",wakeL:"wake",startL:"startStudy",sleepL:"sleep",phoneL:"phone",studyL:"study",testL:"tests",work:"work",backTitle:"back",bYes:"yes",bNo:"no",bl:"bl",cl:"cl",rl:"rl",bg:"good",save:"save",taskTitle:"tasks",add:"add",recordsTitle:"records",taskInput:"taskph"};for(let id in map){let e=$(id);if(!e)continue;if(e.tagName==="INPUT")e.placeholder=tr(map[id]);else e.textContent=tr(map[id])}}
+function hours(id){let e=$(id);e.innerHTML="<option value=''>Select</option>";for(let i=0;i<=24;i++)e.innerHTML+=`<option value="${i}">${i} ${i===1?"hour":"hours"}</option>`}
+document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-lang]").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");lang=b.dataset.lang;translate()});
+document.querySelectorAll("[data-target]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-target]").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");target=b.dataset.target;$("stream").classList.toggle("hide",target!=="11th"&&target!=="12th")});
+document.querySelectorAll("[data-stream]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-stream]").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");stream=b.dataset.stream});
+$("enter").onclick=()=>{let n=$("name").value.trim();if(!n||!target||((target==="11th"||target==="12th")&&!stream)){alert("Please complete all selections.");return}profile={name:n,language:lang,target,stream};sessionStorage.removeItem("sd.changeProfile");save();loadProfileData();open()};
+$("change").onclick=()=>{sessionStorage.setItem("sd.changeProfile","1");location.reload()};
+function open(){target=profile.target;stream=profile.stream;lang=profile.language;loadProfileData();$("setup").classList.add("hide");$("app").classList.remove("hide");$("hello").textContent=(lang==="Hindi"?"नमस्ते, ":"Hello, ")+profile.name+" 👋";$("info").textContent=profile.target+(profile.stream?" • "+profile.stream:"");hours("phone");hours("study");translate();render();renderTasks();renderNotes();stats()}
+function render(){let r=records[day()]||{};["wake","start","sleep","tests","back","complete"].forEach(x=>$(x).value=r[x]??"");$("phone").value=r.phone??"";$("study").value=r.study??"";backlog=r.backlog??null;backUI();$("subjects").innerHTML=S().map(s=>`<div class="subject"><h3>${s}</h3>${yn(s,"live",tr("live"),r)}${yn(s,"dpp",tr("dpp"),r)}${yn(s,"home",tr("home"),r)}</div>`).join("");calendar();compare()}
+function yn(s,k,label,r){let a=r[k+s]||"";return `<label>${label}</label><div class="yn"><button class="yes ${a==="yes"?"sel":""}" onclick="setyn('${s}','${k}','yes')">${tr("yes")}</button><button class="no ${a==="no"?"sel":""}" onclick="setyn('${s}','${k}','no')">${tr("no")}</button></div>`}
+window.setyn=(s,k,v)=>{let r=records[day()]||{};r[k+s]=v;records[day()]=r;persistData();render();stats()};
+$("bYes").onclick=()=>{backlog="yes";backUI()};$("bNo").onclick=()=>{backlog="no";backUI()};
+function backUI(){$("bYes").classList.toggle("sel",backlog==="yes");$("bNo").classList.toggle("sel",backlog==="no");$("bd").classList.toggle("hide",backlog!=="yes");$("bg").classList.toggle("hide",backlog!=="no");calc()}
+$("back").oninput=calc;$("complete").oninput=calc;function calc(){$("remain").value=Math.max(0,(+$("back").value||0)-(+$("complete").value||0))}
+$("save").onclick=()=>{let r=records[day()]||{};["wake","start","sleep","phone","study","tests"].forEach(x=>r[x]=$(x).value);r.saved=true;r.backlog=backlog;r.back=+$("back").value||0;r.complete=+$("complete").value||0;r.remain=Math.max(0,r.back-r.complete);records[day()]=r;persistData();calendar();compare();stats();renderRecords();alert(tr("save"))};
+function calendar(){let d=new Date(),y=d.getFullYear(),m=d.getMonth(),f=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate(),h=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(x=>`<div class="muted">${x}</div>`).join("");for(let i=0;i<f;i++)h+="<div></div>";for(let i=1;i<=n;i++){let k=y+"-"+String(m+1).padStart(2,"0")+"-"+String(i).padStart(2,"0");h+=`<button class="day ${records[k]?.saved?"done":""}" onclick="view('${k}')"><b>${i}</b><small>${records[k]?.saved?"✓ Done":"Not filled"}</small></button>`}$("calendar").innerHTML=h}
+function stats(){let r=records[day()]||{};$("ss").textContent=(r.study||0)+"h";$("qs").textContent=S().filter(s=>r["home"+s]==="yes").length;$("lsn").textContent=S().filter(s=>r["live"+s]==="yes").length;$("streak").textContent=Object.values(records).filter(x=>x.saved).length}
+function prev(){let d=new Date();d.setDate(d.getDate()-1);return d.toISOString().slice(0,10)}
+function compare(){let r=records[day()],p=records[prev()];if(!r?.saved||!p?.saved){$("compare").classList.add("hide");return}let x=(+r.study||0)-(+p.study||0),msg=x>0?`<span class="more">📈 ${x}h ${tr("more")}</span>`:x<0?`<span class="less">📉 ${Math.abs(x)}h ${tr("less")}</span>`:`<span class="same">➖ ${tr("same")}</span>`;$("compare").innerHTML=msg;$("compare").classList.remove("hide")}
+$("add").onclick=()=>{let text=$("taskInput").value.trim();if(!text)return;tasks.push({id:Date.now(),text,done:null});$("taskInput").value="";persistData();renderTasks()};
+function renderTasks(){$("taskList").innerHTML=tasks.length?tasks.map(x=>`<div class="task"><b>${x.text}</b><div style="margin-top:8px">${tr("done")}<div class="yn" style="margin-top:6px"><button class="yes ${x.done===true?"sel":""}" onclick="task(${x.id},true)">${tr("yes")}</button><button class="no ${x.done===false?"sel":""}" onclick="task(${x.id},false)">${tr("no")}</button></div></div><button class="sec" onclick="del(${x.id})">${lang==="Hindi"?"हटाएँ":"Delete"}</button></div>`).join(""):""}
+window.task=(id,v)=>{let x=tasks.find(a=>a.id===id);x.done=v;persistData();renderTasks()};window.del=id=>{tasks=tasks.filter(x=>x.id!==id);persistData();renderTasks()};
+$("tb").onclick=()=>{run=!run;if(run){$("tb").textContent=lang==="Hindi"?"रोकें":"Pause";int=setInterval(()=>{t++;clock()},1000)}else{clearInterval(int);$("tb").textContent=lang==="Hindi"?"टाइमर शुरू करें":"Start Timer"}};$("tr").onclick=()=>{clearInterval(int);t=0;run=false;clock();$("tb").textContent=lang==="Hindi"?"टाइमर शुरू करें":"Start Timer"};function clock(){let h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;$("clock").textContent=[h,m,s].map(x=>String(x).padStart(2,"0")).join(":")}
+const N={Physics:["v=u+at","s=ut+½at²","v²=u²+2as","F=ma"],Chemistry:["n=m/M","PV=nRT","pH=−log[H⁺]"],Biology:["DNA → RNA → Protein","Cell is the basic unit of life"],Maths:["a²+b²=c²","sin²θ+cos²θ=1"]};
+function renderNotes(){$("noteButtons").innerHTML=S().map(s=>`<button class="opt" onclick="notes('${s}')">${s}</button>`).join("")}window.notes=s=>{$("noteContent").innerHTML="<h3>"+s+"</h3>"+N[s].map(x=>`<div class="card">${x}</div>`).join("")};
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll("main section").forEach(x=>x.classList.add("hide"));$(b.dataset.page).classList.remove("hide");document.querySelectorAll(".tab").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");if(b.dataset.page==="records")renderRecords()});
+function renderRecords(){$("recordList").innerHTML=Object.entries(records).filter(([,r])=>r.saved).sort((a,b)=>b[0].localeCompare(a[0])).map(([k,r])=>`<div class="card"><h3>${k}</h3><p>${lang==="Hindi"?"पढ़ाई":"Study"}: ${r.study||0}h • ${lang==="Hindi"?"फोन":"Phone"}: ${r.phone||0}h • ${lang==="Hindi"?"टेस्ट":"Tests"}: ${r.tests||0}</p><button class="sec" onclick="view('${k}')">${tr("full")}</button></div>`).join("")||`<p>${tr("empty")}</p>`}
+window.view=k=>{
+  let r=records[k];
+  if(!r)return;
+  let out=`<div class="card"><h2>${tr("records")} — ${k}</h2>`;
+  const add=(a,b)=>out+=`<div class="record"><b>${a}</b><span>${b}</span></div>`;
+  add(tr("name"),profile.name);
+  add(tr("target"),profile.target+(profile.stream?" • "+profile.stream:""));
+  add(tr("wake"),r.wake||"-");
+  add(tr("startStudy"),r.start||"-");
+  add(tr("sleep"),r.sleep||"-");
+  add(tr("phone"),(r.phone??0)+"h");
+  add(tr("study"),(r.study??0)+"h");
+  add(tr("tests"),r.tests??0);
+
+  S().forEach(s=>{
+    add(s+" • "+tr("live"),r["live"+s]==="yes"?tr("yes"):tr("no"));
+    add(s+" • "+tr("dpp"),r["dpp"+s]==="yes"?tr("yes"):tr("no"));
+    add(s+" • "+tr("home"),r["home"+s]==="yes"?tr("yes"):tr("no"));
+  });
+
+  if(r.backlog==="yes"){
+    add(tr("back"),`${tr("yes")} — ${tr("bl")}: ${r.back??0}, ${tr("cl")}: ${r.complete??0}, ${tr("rl")}: ${r.remain??0}`);
+  }else{
+    add(tr("back"),tr("no"));
+  }
+
+  let dayTasks=tasks;
+  if(dayTasks.length){
+    out+=`<div style="margin-top:18px"><h3>${lang==="Hindi"?"उस दिन के टास्क":"Tasks"}</h3>`;
+    dayTasks.forEach(x=>add(x.text,x.done===true?tr("yes"):x.done===false?tr("no"):"-"));
+    out+=`</div>`;
+  }
+
+  out+=`<button class="primary" onclick="this.parentElement.remove()">${lang==="Hindi"?"बंद करें":"Close"}</button></div>`;
+  $("recordList").insertAdjacentHTML("afterbegin",out);
+  $("records").scrollIntoView({behavior:"smooth"});
+};
+if(profile && sessionStorage.getItem("sd.changeProfile")!=="1"){
+  loadProfileData();open();
+}else if(sessionStorage.getItem("sd.changeProfile")==="1"){
+  $("setup").classList.remove("hide");
+  $("app").classList.add("hide");
+}
+</script></body></html>
