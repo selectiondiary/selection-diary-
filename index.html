@@ -136,7 +136,6 @@ if(profile && sessionStorage.getItem("sd.changeProfile")!=="1"){
   $("setup").classList.remove("hide");
   $("app").classList.add("hide");
 }
-<script>
 document.addEventListener('click', function(e) {
     if (e.target && e.target.tagName === 'BUTTON' && e.target.textContent.trim() === 'No') {
         let parent = e.target.parentElement;
@@ -152,5 +151,4 @@ document.addEventListener('click', function(e) {
         e.target.style.color = '#dc2626';
     }
 });
-</script>
 </script></body></html>
