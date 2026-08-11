@@ -6,7 +6,8 @@
   height: auto;
   display: block;
   margin: 0 auto 10px;
-}</style><link rel="icon" type="image/png" href="logo.png">
+.btn-red.sel, .btn-red.active { background: #fef2f2 !important; border-color: #ef4444 !important; color: #dc2626 !important; }
+</style><link rel="icon" type="image/png" href="logo.png">
 </head><body>
 
 <div id="setup" class="setup"><div class="card"><div class="logo">
@@ -28,7 +29,7 @@
 <div><label id="wakeL">Wake-up Time</label><input id="wake" type="time"></div><div><label id="startL">Study Start Time</label><input id="start" type="time"></div><div><label id="sleepL">Sleep Time</label><input id="sleep" type="time"></div>
 <div><label id="phoneL">Phone Screen Time</label><select id="phone"></select></div><div><label id="studyL">Total Study Hours</label><select id="study"></select></div><div><label id="testL">Tests Given</label><input id="tests" type="number" min="0"></div></div></div>
 <div class="card"><h2 id="work">📚 Daily Work</h2><div id="subjects" class="g3"></div></div>
-<div class="card"><h2 id="backTitle">⚠️ Backlog</h2><div class="yn"><button id="bNo" class="no">No</button><button id="bYes" class="yes">Yes</button></div><div id="bd" class="g3 hide" style="margin-top:10px"><div><label id="bl">Backlog Lecture</label><input id="back" type="number" min="0"></div><div><label id="cl">Complete Lecture</label><input id="complete" type="number" min="0"></div><div><label id="rl">Total Lecture</label><input id="remain" type="number" readonly></div></div><div id="bg" class="card good hide">Good 👍 No backlog!</div></div>
+<div class="card"><h2 id="backTitle">⚠️ Backlog</h2><div class="yn"><button id="bNo" class="no btn-red">No</button><button id="bYes" class="yes">Yes</button></div><div id="bd" class="g3 hide" style="margin-top:10px"><div><label id="bl">Backlog Lecture</label><input id="back" type="number" min="0"></div><div><label id="cl">Complete Lecture</label><input id="complete" type="number" min="0"></div><div><label id="rl">Total Lecture</label><input id="remain" type="number" readonly></div></div><div id="bg" class="card good hide">Good 👍 No backlog!</div></div>
 <div id="compare" class="card hide"></div><button id="save" class="primary">Save Today's Record ✓</button>
 </section>
 
