@@ -136,4 +136,21 @@ if(profile && sessionStorage.getItem("sd.changeProfile")!=="1"){
   $("setup").classList.remove("hide");
   $("app").classList.add("hide");
 }
+<script>
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.tagName === 'BUTTON' && e.target.textContent.trim() === 'No') {
+        let parent = e.target.parentElement;
+        if (parent) {
+            parent.querySelectorAll('button').forEach(b => {
+                b.style.background = '';
+                b.style.borderColor = '';
+                b.style.color = '';
+            });
+        }
+        e.target.style.background = '#fef2f2';
+        e.target.style.borderColor = '#ef4444';
+        e.target.style.color = '#dc2626';
+    }
+});
+</script>
 </script></body></html>
